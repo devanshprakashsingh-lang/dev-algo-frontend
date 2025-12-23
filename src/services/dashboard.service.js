@@ -1,14 +1,29 @@
-// STEP 4.3 — SERVICE LAYER (READ-ONLY)
-// ❌ No API calls
-// ❌ No side effects
-// ❌ Safe abstraction for future backend wiring
+// PHASE 5.2 — Dashboard Service
+// Source of truth: engine (mocked for now)
 
-import { DASHBOARD_STATS_MOCK, DASHBOARD_ACTIVITY_MOCK } from "../data/dashboard.mock";
+export function fetchDashboardSnapshot() {
+  return {
+    meta: {
+      timestamp: Date.now(),
+      source: "mock",
+      healthy: true,
+    },
 
-export function getDashboardStats() {
-  return DASHBOARD_STATS_MOCK;
-}
+    algo: {
+      status: "RUNNING",
+      message: "Engine operational",
+    },
 
-export function getDashboardActivity() {
-  return DASHBOARD_ACTIVITY_MOCK;
+    pnl: {
+      today: 0,
+    },
+
+    positions: {
+      openCount: 0,
+    },
+
+    risk: {
+      status: "NORMAL",
+    },
+  };
 }

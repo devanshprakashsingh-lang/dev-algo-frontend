@@ -1,17 +1,20 @@
-// STEP 4.5 — DASHBOARD DATA FACADE
-// Single read-only entry point for dashboard data
-// ❌ No UI imports
-// ❌ No React
-// ❌ No side effects
+// PHASE 5.2 — Dashboard Facade
+// Translates service snapshot into UI-consumable shape
 
-import { getDashboardStats } from "../services/dashboard.service";
-import { adaptDashboardStats } from "../adapters/dashboard.adapter";
+import { fetchDashboardSnapshot } from "../services/dashboard.service";
 
-/**
- * Final dashboard data for UI (future use)
- * UI must ONLY consume this facade later
- */
 export function fetchDashboardOverview() {
-  const rawStats = getDashboardStats();
-  return adaptDashboardStats(rawStats);
+  const snapshot = fetchDashboardSnapshot();
+
+  return {
+    algoStatus: snapshot.algo.status,
+    algoMessage: snapshot.algo.message,
+
+    todayPnl: snapshot.pnl.today,
+    openPositions: snapshot.positions.openCount,
+
+    riskStatus: snapshot.risk.status,
+
+    meta: snapshot.meta,
+  };
 }

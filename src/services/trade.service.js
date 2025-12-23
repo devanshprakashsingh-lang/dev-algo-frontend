@@ -1,8 +1,18 @@
-// STEP 4.3 — TRADE SERVICE (READ-ONLY)
-// ❌ No UI usage yet
+// PHASE 5.2 — PnL Service
 
-import { TRADE_HISTORY_MOCK } from "../data/trades.mock";
+export function fetchPnLSnapshot() {
+  return {
+    meta: {
+      timestamp: Date.now(),
+      source: "mock",
+    },
 
-export function getTradeHistory() {
-  return TRADE_HISTORY_MOCK;
+    summary: {
+      today: 0,
+      month: 0,
+      total: 0,
+    },
+
+    calendar: {},
+  };
 }

@@ -8,11 +8,13 @@ import PnL from "./pages/PnL";
 import Logs from "./pages/Logs";
 import Accounts from "./pages/Accounts";
 
-// STEP 4.8 — BOOTSTRAP (GLOBAL, ONCE)
 import { bootstrapApp } from "./bootstrap/app.bootstrap";
 
 export default function App() {
-  // 🔒 Bootstrap frontend state ONLY ONCE
+  // ============================
+  // PHASE 5.3 — BOOTSTRAP BINDING
+  // ============================
+  // Runs exactly once on app load
   useEffect(() => {
     bootstrapApp();
   }, []);

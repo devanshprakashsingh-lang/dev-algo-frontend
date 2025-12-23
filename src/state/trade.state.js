@@ -1,30 +1,20 @@
-// STEP 4.6 — TRADE READ-ONLY STATE
+// PHASE 5.2 — Trade Read-Only State
 // ❌ No React
 // ❌ No UI imports
-// ❌ No side effects
-// Holds normalized trade history snapshot
+// Single source of truth for trade snapshot
 
-import { fetchTradeHistory } from "../facades/trade.facade";
+import { fetchTradeSnapshot } from "../facades/trade.facade";
 
-let tradeSnapshot = [];
+let tradeSnapshot = null;
 
-/**
- * Loads trade history into state
- */
 export function loadTradeState() {
-  tradeSnapshot = fetchTradeHistory();
+  tradeSnapshot = fetchTradeSnapshot();
 }
 
-/**
- * Read-only access to trade state
- */
 export function getTradeState() {
   return tradeSnapshot;
 }
 
-/**
- * Clears trade state (future reconnect / logout use)
- */
 export function resetTradeState() {
-  tradeSnapshot = [];
+  tradeSnapshot = null;
 }
