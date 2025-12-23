@@ -1,44 +1,29 @@
 import StatCard from "../components/ui/cards/StatCard";
-
-// STEP 4.8 — READ-ONLY STATE ACCESS
-import { getDashboardState } from "../state/dashboard.state";
-
-// UI-SAFE DEFAULT (NO STATE ASSUMPTION)
-const DEFAULT_DASHBOARD = {
-  algoStatus: "RUNNING",
-  algoSubStatus: "ACTIVE",
-  algoStatusType: "success",
-  todayPnLFormatted: "₹ 0.00",
-  openPositions: 0,
-  riskStatus: "NORMAL",
-  riskSubStatus: "OK",
-  riskStatusType: "success",
-};
+import { selectDashboardOverview } from "../selectors/dashboard.selectors";
 
 export default function Overview() {
-  // SAFE READ (never crashes)
-  const dashboard = getDashboardState() || DEFAULT_DASHBOARD;
+  const overview = selectDashboardOverview();
 
   const overviewStats = [
     {
       label: "ALGO STATUS",
-      value: dashboard.algoStatus,
-      subValue: dashboard.algoSubStatus,
-      status: dashboard.algoStatusType,
+      value: overview.algoStatus,
+      subValue: overview.healthy ? "success" : "warning",
+      status: overview.healthy ? "success" : "warning",
     },
     {
       label: "TODAY PNL",
-      value: dashboard.todayPnLFormatted,
+      value: overview.todayPnl,
     },
     {
       label: "OPEN POSITIONS",
-      value: String(dashboard.openPositions),
+      value: overview.openPositions,
     },
     {
       label: "RISK STATUS",
-      value: dashboard.riskStatus,
-      subValue: dashboard.riskSubStatus,
-      status: dashboard.riskStatusType,
+      value: overview.riskStatus,
+      subValue: overview.healthy ? "success" : "warning",
+      status: overview.healthy ? "success" : "warning",
     },
   ];
 

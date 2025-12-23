@@ -1,48 +1,35 @@
-// frontend/src/pages/PnL.jsx
-
-// STEP 4.8 — READ-ONLY STATE ACCESS
-import { getDashboardState } from "../state/dashboard.state";
-
-// UI-SAFE DEFAULTS (NULL-SAFE)
-const DEFAULT_PNL = {
-  todayPnLFormatted: "₹ 0.00",
-  monthPnLFormatted: "₹ 0.00",
-  totalPnLFormatted: "₹ 0.00",
-};
+import { selectPnLSummary } from "../selectors/pnl.selectors";
 
 export default function PnL() {
-  // SAFE READ (never crashes)
-  const dashboard = getDashboardState() || DEFAULT_PNL;
+  const pnl = selectPnLSummary();
 
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-gray-800">PnL</h2>
 
-      {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Today</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            {dashboard.todayPnLFormatted}
+            {pnl.today}
           </div>
         </div>
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">This Month</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            {dashboard.monthPnLFormatted}
+            {pnl.month}
           </div>
         </div>
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Total</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            {dashboard.totalPnLFormatted}
+            {pnl.total}
           </div>
         </div>
       </div>
 
-      {/* Placeholder for Calendar / History */}
       <div className="bg-white border rounded-lg p-6">
         <h3 className="text-lg font-semibold mb-2">PnL Calendar</h3>
         <p className="text-sm text-gray-600">

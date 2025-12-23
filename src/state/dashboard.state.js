@@ -9,22 +9,28 @@ import { fetchDashboardOverview } from "../facades/dashboard.facade";
 let dashboardSnapshot = null;
 
 /**
- * Loads dashboard data into state (one-time for now)
- * Later this can support refresh / polling
+ * Initial load (bootstrap)
  */
 export function loadDashboardState() {
   dashboardSnapshot = fetchDashboardOverview();
 }
 
 /**
- * Read-only access to dashboard state
+ * Runtime refresh update (Phase 5+)
+ */
+export function updateDashboardState(nextSnapshot) {
+  dashboardSnapshot = nextSnapshot;
+}
+
+/**
+ * Read-only access
  */
 export function getDashboardState() {
   return dashboardSnapshot;
 }
 
 /**
- * Clears dashboard state (future engine reset use)
+ * Reset (logout / engine reset)
  */
 export function resetDashboardState() {
   dashboardSnapshot = null;
