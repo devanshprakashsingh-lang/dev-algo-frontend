@@ -1,4 +1,18 @@
+// src/pages/Accounts.jsx
+
+// STEP 4.10 — READ-ONLY STATE ACCESS
+import { getDashboardState } from "../state/dashboard.state";
+
+// UI-SAFE DEFAULTS (NULL-SAFE)
+const DEFAULT_ACCOUNTS_DASHBOARD = {
+  brokerStatus: "CONNECTED",
+  brokerStatusType: "success",
+};
+
 export default function Accounts() {
+  // SAFE READ (never crashes)
+  const dashboard = getDashboardState() || DEFAULT_ACCOUNTS_DASHBOARD;
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-gray-800">Accounts</h2>
@@ -21,8 +35,14 @@ export default function Accounts() {
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Broker Status</div>
-          <div className="mt-2 text-lg font-semibold text-green-600">
-            CONNECTED
+          <div
+            className={`mt-2 text-lg font-semibold ${
+              dashboard.brokerStatusType === "success"
+                ? "text-green-600"
+                : "text-red-600"
+            }`}
+          >
+            {dashboard.brokerStatus}
           </div>
         </div>
       </div>

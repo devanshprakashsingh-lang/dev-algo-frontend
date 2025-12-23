@@ -1,37 +1,49 @@
 import StatCard from "../components/ui/cards/StatCard";
 
+// STEP 4.8 — READ-ONLY STATE ACCESS
+import { getDashboardState } from "../state/dashboard.state";
+
+// UI-SAFE DEFAULT (NO STATE ASSUMPTION)
+const DEFAULT_DASHBOARD = {
+  algoStatus: "RUNNING",
+  algoSubStatus: "ACTIVE",
+  algoStatusType: "success",
+  todayPnLFormatted: "₹ 0.00",
+  openPositions: 0,
+  riskStatus: "NORMAL",
+  riskSubStatus: "OK",
+  riskStatusType: "success",
+};
+
 export default function Overview() {
-  // ============================
-  // STEP 4.2 — UI DATA CONTRACT
-  // (Static but structured)
-  // ============================
+  // SAFE READ (never crashes)
+  const dashboard = getDashboardState() || DEFAULT_DASHBOARD;
 
   const overviewStats = [
     {
       label: "ALGO STATUS",
-      value: "RUNNING",
-      subValue: "ACTIVE",
-      status: "success",
+      value: dashboard.algoStatus,
+      subValue: dashboard.algoSubStatus,
+      status: dashboard.algoStatusType,
     },
     {
       label: "TODAY PNL",
-      value: "₹ 0.00",
+      value: dashboard.todayPnLFormatted,
     },
     {
       label: "OPEN POSITIONS",
-      value: "0",
+      value: String(dashboard.openPositions),
     },
     {
       label: "RISK STATUS",
-      value: "NORMAL",
-      subValue: "OK",
-      status: "success",
+      value: dashboard.riskStatus,
+      subValue: dashboard.riskSubStatus,
+      status: dashboard.riskStatusType,
     },
   ];
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
       <div>
         <h1 className="text-lg font-semibold text-gray-900">Overview</h1>
         <p className="text-sm text-gray-500">
@@ -39,7 +51,6 @@ export default function Overview() {
         </p>
       </div>
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {overviewStats.map((stat, index) => (
           <StatCard
@@ -52,7 +63,6 @@ export default function Overview() {
         ))}
       </div>
 
-      {/* System Summary */}
       <div className="bg-white border border-gray-200 rounded-lg p-4">
         <h2 className="text-sm font-semibold text-gray-900 mb-1">
           System Summary

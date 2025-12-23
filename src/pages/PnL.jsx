@@ -1,6 +1,19 @@
 // frontend/src/pages/PnL.jsx
 
+// STEP 4.8 — READ-ONLY STATE ACCESS
+import { getDashboardState } from "../state/dashboard.state";
+
+// UI-SAFE DEFAULTS (NULL-SAFE)
+const DEFAULT_PNL = {
+  todayPnLFormatted: "₹ 0.00",
+  monthPnLFormatted: "₹ 0.00",
+  totalPnLFormatted: "₹ 0.00",
+};
+
 export default function PnL() {
+  // SAFE READ (never crashes)
+  const dashboard = getDashboardState() || DEFAULT_PNL;
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-gray-800">PnL</h2>
@@ -10,21 +23,21 @@ export default function PnL() {
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Today</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            ₹ 0.00
+            {dashboard.todayPnLFormatted}
           </div>
         </div>
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">This Month</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            ₹ 0.00
+            {dashboard.monthPnLFormatted}
           </div>
         </div>
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Total</div>
           <div className="mt-2 text-lg font-semibold text-gray-800">
-            ₹ 0.00
+            {dashboard.totalPnLFormatted}
           </div>
         </div>
       </div>

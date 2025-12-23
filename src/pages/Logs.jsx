@@ -1,4 +1,18 @@
+// src/pages/Logs.jsx
+
+// STEP 4.9 — READ-ONLY STATE ACCESS
+import { getDashboardState } from "../state/dashboard.state";
+
+// UI-SAFE DEFAULTS (NULL-SAFE)
+const DEFAULT_LOGS_DASHBOARD = {
+  engineStatus: "HEALTHY",
+  engineStatusType: "success",
+};
+
 export default function Logs() {
+  // SAFE READ (never crashes)
+  const dashboard = getDashboardState() || DEFAULT_LOGS_DASHBOARD;
+
   return (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold text-gray-800">Logs</h2>
@@ -21,8 +35,14 @@ export default function Logs() {
 
         <div className="bg-white border rounded-lg p-4">
           <div className="text-sm text-gray-500">Engine Status</div>
-          <div className="mt-2 text-lg font-semibold text-green-600">
-            HEALTHY
+          <div
+            className={`mt-2 text-lg font-semibold ${
+              dashboard.engineStatusType === "success"
+                ? "text-green-600"
+                : "text-red-600"
+            }`}
+          >
+            {dashboard.engineStatus}
           </div>
         </div>
       </div>
