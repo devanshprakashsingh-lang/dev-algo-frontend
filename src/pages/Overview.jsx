@@ -1,29 +1,65 @@
 import StatCard from "../components/ui/cards/StatCard";
 
 export default function Overview() {
+  // ============================
+  // STEP 4.2 — UI DATA CONTRACT
+  // (Static but structured)
+  // ============================
+
+  const overviewStats = [
+    {
+      label: "ALGO STATUS",
+      value: "RUNNING",
+      subValue: "ACTIVE",
+      status: "success",
+    },
+    {
+      label: "TODAY PNL",
+      value: "₹ 0.00",
+    },
+    {
+      label: "OPEN POSITIONS",
+      value: "0",
+    },
+    {
+      label: "RISK STATUS",
+      value: "NORMAL",
+      subValue: "OK",
+      status: "success",
+    },
+  ];
+
   return (
-    <div className="space-y-4">
+    <div className="space-y-6">
+      {/* Page Title */}
       <div>
-        <h2 className="text-lg font-semibold text-gray-900">Overview</h2>
-        <p className="text-xs text-gray-500">
+        <h1 className="text-lg font-semibold text-gray-900">Overview</h1>
+        <p className="text-sm text-gray-500">
           Live system health and trading summary
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        <StatCard label="Algo Status" value="RUNNING" status="ACTIVE" />
-        <StatCard label="Today PnL" value="₹ 0.00" />
-        <StatCard label="Open Positions" value="0" />
-        <StatCard label="Risk Status" value="NORMAL" status="OK" />
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {overviewStats.map((stat, index) => (
+          <StatCard
+            key={index}
+            label={stat.label}
+            value={stat.value}
+            subValue={stat.subValue}
+            status={stat.status}
+          />
+        ))}
       </div>
 
-      <div className="bg-white border border-gray-200 rounded-md px-4 py-3">
-        <h3 className="text-sm font-semibold text-gray-900 mb-1">
+      {/* System Summary */}
+      <div className="bg-white border border-gray-200 rounded-lg p-4">
+        <h2 className="text-sm font-semibold text-gray-900 mb-1">
           System Summary
-        </h3>
-        <p className="text-xs text-gray-600 leading-relaxed">
-          Read-only dashboard. All executions, risk guards, and order handling
-          are fully automated by the engine as per the locked roadmap.
+        </h2>
+        <p className="text-sm text-gray-600">
+          This is a read-only dashboard. All executions, risk guards, and order
+          handling are fully automated by the engine as per the locked roadmap.
         </p>
       </div>
     </div>
